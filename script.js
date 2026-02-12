@@ -26,7 +26,12 @@ function operate(num1, num2, operator) {
       result = modulus(floatNum1, floatNum2);
       break;
   }
-  return result;
+  console.log(result);
+
+  return roundTwoDecimals(result);
+}
+function roundTwoDecimals(num) {
+  return Math.round(num * 100) / 100;
 }
 
 function add(a, b) {
@@ -66,6 +71,7 @@ function updateNumberTwo(btn) {
 }
 numbersBtn.forEach((btn) => {
   btn.addEventListener("click", () => {
+    clearOperatorsColor();
     if (operator === "") {
       updateNumberOne(btn);
       console.log("number 1: " + num1);
@@ -81,6 +87,12 @@ const operatorButtons = document.querySelectorAll(".operator-btn");
 
 operatorButtons.forEach((op) => {
   op.addEventListener("click", () => {
+    // style button
+    clearOperatorsColor();
+    op.style.backgroundColor = "orange";
+
+    if (num1 === "") return;
+
     if (num2 !== "") {
       result = operate(num1, num2, operator);
       display.textContent = result;
@@ -90,10 +102,6 @@ operatorButtons.forEach((op) => {
 
     operator = op.textContent;
     console.log(operator);
-
-    // style button
-    clearOperatorsColor();
-    op.style.backgroundColor = "orange";
   });
 });
 
@@ -101,9 +109,9 @@ operatorButtons.forEach((op) => {
 const equal = document.querySelector("#equal");
 
 equal.addEventListener("click", () => {
-  if (num1 === "" || num2 === "" || operator === "")
+  if (num1 === "" || num2 === "" || operator === "") {
     display.textContent = result;
-  else display.textContent = operate(num1, num2, operator);
+  } else display.textContent = operate(num1, num2, operator);
 
   clear();
 });
@@ -125,7 +133,7 @@ function clear() {
   operator = "";
   num1 = "";
   num2 = "";
-  result = "";
+  result = 0;
   clearOperatorsColor();
 }
 
