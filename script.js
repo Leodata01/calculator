@@ -3,26 +3,29 @@ let operator = "";
 let num1 = "";
 let num2 = "";
 // Calculation functions
-function operate(num1, oprator, num2) {
-  num1 = parseInt(num1);
-  num2 = parseInt(num2);
-  switch (oprator) {
+function operate(num1, num2, operator) {
+  //
+  const floatNum1 = parseFloat(num1);
+  const floatNum2 = parseFloat(num2);
+  let result;
+  switch (operator) {
     case "+":
-      result = add(num1, num2);
+      result = add(floatNum1, floatNum2);
       break;
     case "-":
-      result = substract(num1, num2);
+      result = substract(floatNum1, floatNum2);
       break;
     case "*":
-      result = multiply(num1, num2);
+      result = multiply(floatNum1, floatNum2);
       break;
     case "/":
-      result = divide(num1, num2);
+      result = divide(floatNum1, floatNum2);
       break;
     case "%":
-      result = modulus(num1, num2);
+      result = modulus(floatNum1, floatNum2);
       break;
   }
+  return result;
 }
 
 function add(a, b) {
@@ -52,8 +55,16 @@ const numbersBtn = document.querySelectorAll(".number-btn");
 const display = document.querySelector("#displayText");
 
 // update number variables (0,1,2,3,4...)
-numbersBtn.forEach((number) => {
-  number.addEventListener("click", () => {});
+
+function updateNumber(btn) {
+  num1 += btn.textContent;
+  display.textContent = num1;
+}
+
+numbersBtn.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    updateNumber(btn);
+  });
 });
 
 // update operator variable ("+", "-", "x" ...)
