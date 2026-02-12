@@ -26,7 +26,6 @@ function operate(num1, num2, operator) {
       result = modulus(floatNum1, floatNum2);
       break;
   }
-  console.log(result);
 
   return roundTwoDecimals(result);
 }
@@ -47,6 +46,11 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
+  if (b === 0)
+    return (
+      alert("You are dumb as fuck you try to divid by 0 go Home! "),
+      clear
+    );
   return a / b;
 }
 
