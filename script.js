@@ -1,6 +1,7 @@
 // functions
 
 let operator = "";
+let lasOperator = "";
 let num1 = "";
 let num2 = "";
 let result = "";
@@ -55,31 +56,15 @@ const display = document.querySelector("#displayText");
 
 // update number variables (0,1,2,3,4...)
 numbersBtn.forEach((number) => {
-  number.addEventListener("click", () => {
-    num2 += number.textContent;
-    display.textContent = num2;
-  });
+  number.addEventListener("click", () => {});
 });
 
 // update operator variable ("+", "-", "x" ...)
-operatorButtons = document.querySelectorAll(".operator-btn");
+const operatorButtons = document.querySelectorAll(".operator-btn");
+const divOperator = document.querySelector("#operator");
 
 operatorButtons.forEach((op) => {
-  op.addEventListener("click", () => {
-    // not the first interaction
-    if (!operator === "") {
-      operate(num1, operator, num2);
-    }
-    // first interaction
-    else {
-      num1 = num2;
-      num2 = "";
-      operator = op.textContent;
-    }
-
-    // every interactions
-    display.textContent = operator;
-  });
+  op.addEventListener("click", () => {});
 });
 
 // return result when "=" pressed
