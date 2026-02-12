@@ -41,11 +41,17 @@ div {
   border-radius: 3%;
   background-color: pink;
   flex: 1;
-  justify-content: end;
-  justify-items: end;
-  padding: 30px 5px 5px;
+  flex-direction: column;
 }
 
+#displayText {
+  align-self: flex-end;
+  justify-content: end;
+}
+
+#operator {
+  align-self: flex-end;
+}
 /* buttons */
 .buttons {
   flex: 1;
