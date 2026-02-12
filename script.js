@@ -26,6 +26,8 @@ function operate(num1, num2, operator) {
       result = modulus(floatNum1, floatNum2);
       break;
   }
+  if (typeof result ==! "number"
+    )  
 
   return roundTwoDecimals(result);
 }
