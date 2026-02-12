@@ -26,8 +26,7 @@ function operate(num1, num2, operator) {
       result = modulus(floatNum1, floatNum2);
       break;
   }
-  if (typeof result ==! "number"
-    )  
+  if (typeof result !== "number") return 0;
 
   return roundTwoDecimals(result);
 }
@@ -67,24 +66,22 @@ const numbersBtn = document.querySelectorAll(".number-btn");
 const display = document.querySelector("#displayText");
 
 // update number variables (0,1,2,3,4...)
-function updateNumberOne(btn) {
-  num1 += btn.textContent;
-  display.textContent = num1;
-}
-function updateNumberTwo(btn) {
-  num2 += btn.textContent;
-  display.textContent = num2;
+
+function updateNumber(btn) {
+  if (operator === "") {
+    num1 += btn.textContent;
+    display.textContent = num1;
+    console.log("number 1: " + num1);
+  } else {
+    num2 += btn.textContent;
+    display.textContent = num2;
+    console.log("number 2: " + num2);
+  }
 }
 numbersBtn.forEach((btn) => {
   btn.addEventListener("click", () => {
     clearOperatorsColor();
-    if (operator === "") {
-      updateNumberOne(btn);
-      console.log("number 1: " + num1);
-    } else {
-      updateNumberTwo(btn);
-      console.log("number 2: " + num2);
-    }
+    updateNumber(btn);
   });
 });
 
@@ -123,9 +120,18 @@ equal.addEventListener("click", () => {
 });
 
 // handle dot button intercation (".")
-const dot = document.querySelector("#equal");
-
-dot.addEventListener("click", () => {});
+function checkDot(num) {
+  if (num === "") {
+    num = "0.";
+    display.textContent = num;
+  } else if (num.includes(".")) {
+    return;
+  } else {
+    num += ".";
+    display.textContent = num;
+    console.log("number 1: " + num);
+  }
+}
 
 // Clear all when "Clear" pressed
 const clearBtn = document.querySelector("#clear");
