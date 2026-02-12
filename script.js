@@ -1,11 +1,8 @@
-// functions
-
+// general variables
 let operator = "";
-let lasOperator = "";
 let num1 = "";
 let num2 = "";
-let result = "";
-
+// Calculation functions
 function operate(num1, oprator, num2) {
   num1 = parseInt(num1);
   num2 = parseInt(num2);
