@@ -2,12 +2,13 @@
 let operator = "";
 let num1 = "";
 let num2 = "";
+let result = 0;
 // Calculation functions
 function operate(num1, num2, operator) {
   //
   const floatNum1 = parseFloat(num1);
   const floatNum2 = parseFloat(num2);
-  let result;
+  let result = 0;
   switch (operator) {
     case "+":
       result = add(floatNum1, floatNum2);
@@ -55,33 +56,56 @@ const numbersBtn = document.querySelectorAll(".number-btn");
 const display = document.querySelector("#displayText");
 
 // update number variables (0,1,2,3,4...)
-
-function updateNumber(btn) {
+function updateNumberOne(btn) {
   num1 += btn.textContent;
   display.textContent = num1;
 }
-
+function updateNumberTwo(btn) {
+  num2 += btn.textContent;
+  display.textContent = num2;
+}
 numbersBtn.forEach((btn) => {
   btn.addEventListener("click", () => {
-    updateNumber(btn);
+    if (operator === "") {
+      updateNumberOne(btn);
+      console.log("number 1: " + num1);
+    } else {
+      updateNumberTwo(btn);
+      console.log("number 2: " + num2);
+    }
   });
 });
 
 // update operator variable ("+", "-", "x" ...)
 const operatorButtons = document.querySelectorAll(".operator-btn");
-const divOperator = document.querySelector("#operator");
 
 operatorButtons.forEach((op) => {
-  op.addEventListener("click", () => {});
+  op.addEventListener("click", () => {
+    if (num2 !== "") {
+      result = operate(num1, num2, operator);
+      display.textContent = result;
+      num1 = result;
+      num2 = "";
+    }
+
+    operator = op.textContent;
+    console.log(operator);
+
+    // style button
+    clearOperatorsColor();
+    op.style.backgroundColor = "orange";
+  });
 });
 
 // return result when "=" pressed
 const equal = document.querySelector("#equal");
 
 equal.addEventListener("click", () => {
-  operate(num1, operator, num2);
-  display.textContent = result;
-  clearVariables();
+  if (num1 === "" || num2 === "" || operator === "")
+    display.textContent = result;
+  else display.textContent = operate(num1, num2, operator);
+
+  clear();
 });
 
 // handle dot button intercation (".")
@@ -90,16 +114,23 @@ const dot = document.querySelector("#equal");
 dot.addEventListener("click", () => {});
 
 // Clear all when "Clear" pressed
-const clear = document.querySelector("#clear");
+const clearBtn = document.querySelector("#clear");
 
-clear.addEventListener("click", () => {
-  clearVariables();
+clearBtn.addEventListener("click", () => {
+  clear();
   display.textContent = "";
 });
 
-function clearVariables() {
+function clear() {
   operator = "";
   num1 = "";
   num2 = "";
   result = "";
+  clearOperatorsColor();
+}
+
+function clearOperatorsColor() {
+  operatorButtons.forEach((op) => {
+    op.style.backgroundColor = "";
+  });
 }
