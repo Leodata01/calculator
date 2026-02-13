@@ -47,11 +47,11 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-  if (b === 0)
-    return (
-      alert("You are dumb as fuck you try to divid by 0 go Home! "),
-      clear
-    );
+  if (b === 0) {
+    alert("You are dumb as fuck you try to divid by 0 go Home! ");
+    clear();
+    return;
+  }
   return a / b;
 }
 
@@ -71,11 +71,9 @@ function updateNumber(btn) {
   if (operator === "") {
     num1 += btn.textContent;
     display.textContent = num1;
-    console.log("number 1: " + num1);
   } else {
     num2 += btn.textContent;
     display.textContent = num2;
-    console.log("number 2: " + num2);
   }
 }
 numbersBtn.forEach((btn) => {
@@ -104,7 +102,6 @@ operatorButtons.forEach((op) => {
     }
 
     operator = op.textContent;
-    console.log(operator);
   });
 });
 
@@ -120,18 +117,53 @@ equal.addEventListener("click", () => {
 });
 
 // handle dot button intercation (".")
-function checkDot(num) {
-  if (num === "") {
-    num = "0.";
-    display.textContent = num;
-  } else if (num.includes(".")) {
+function checkDot() {
+  let isFirstNum = operator === "";
+  let currentValue = isFirstNum ? num1 : num2;
+
+  if (currentValue === "") {
+    currentValue = "0.";
+  } else if (currentValue.includes(".")) {
     return;
   } else {
-    num += ".";
-    display.textContent = num;
-    console.log("number 1: " + num);
+    currentValue += ".";
   }
+
+  if (isFirstNum) {
+    num1 = currentValue;
+  } else num2 = currentValue;
+
+  display.textContent = currentValue;
 }
+
+const dot = document.querySelector("#dot");
+
+dot.addEventListener("click", checkDot);
+
+// backspace (Del)
+function backspace() {
+  let isFirstNum = operator === "";
+  let currentValue = isFirstNum ? num1 : num2;
+
+  let sliced = currentValue.slice(0, -1);
+  if (isFirstNum) {
+    num1 = sliced;
+  } else num2 = sliced;
+
+  display.textContent = sliced;
+}
+
+const html = document.querySelector("html");
+
+html.addEventListener("keydown", (e) => {
+  let isBackspace = e.code === "Backspace";
+  if (isBackspace) {
+    backspace();
+  }
+});
+
+const del = document.querySelector("#del");
+del.addEventListener("click", backspace);
 
 // Clear all when "Clear" pressed
 const clearBtn = document.querySelector("#clear");
