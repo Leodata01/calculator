@@ -16,7 +16,7 @@ function operate(num1, num2, operator) {
     case "-":
       result = substract(floatNum1, floatNum2);
       break;
-    case "*":
+    case "x":
       result = multiply(floatNum1, floatNum2);
       break;
     case "/":
